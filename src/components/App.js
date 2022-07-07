@@ -15,7 +15,7 @@ function App() {
   ]);
   const [filter, setFilter] = useState('');
 
-  const firsRender = useRef(true);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     const contactsLocal = localStorage.getItem('contacts');
@@ -25,8 +25,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (firsRender.current) {
-      firsRender.current = false;
+    if (firstRender.current) {
+      firstRender.current = false;
       return;
     }
 
