@@ -15,8 +15,6 @@ function App() {
   ]);
   const [filter, setFilter] = useState('');
 
-  console.log(contacts);
-
   const firsRender = useRef(true);
 
   useEffect(() => {
