@@ -2,24 +2,36 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { BsFillPersonPlusFill } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import s from './Phonebook.module.css';
+import { useState } from 'react';
 
-const { Component } = require('react');
+function Phonebook({ findContact, onSaveSubmit }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-class Phonebook extends Component {
-  state = {
-    name: '',
-    number: '',
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        return;
+    }
   };
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     const userName = e.target[0].value;
-    const findUser = this.props.findContact(userName);
+    const findUser = findContact(userName);
 
     if (findUser) {
       return Notify.failure(`${findUser} is already in contacts`);
@@ -27,13 +39,10 @@ class Phonebook extends Component {
 
     Notify.success(`${userName} is added to the list of contacts`);
 
-    this.props.onSaveSubmit(this.state);
-    this.setState({ name: '', number: '' });
+    onSaveSubmit(name, number);
+    reset();
   };
-
-  render() {
-    const { name, number } = this.state;
-    const { handleChange, handleSubmit } = this;
+  
     return (
       <>
         <form onSubmit={handleSubmit} className={s.form}>
@@ -65,12 +74,11 @@ class Phonebook extends Component {
           </label>
           <button type="submit" className={s.btn}>
             {' '}
-            <BsFillPersonPlusFill/>
+            <BsFillPersonPlusFill />
           </button>
         </form>
       </>
     );
-  }
 }
 
 export default Phonebook;

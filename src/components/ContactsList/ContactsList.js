@@ -1,4 +1,3 @@
-import React from 'react';
 import { BsPersonSquare, BsTrashFill } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import s from './ContactsList.module.css';
