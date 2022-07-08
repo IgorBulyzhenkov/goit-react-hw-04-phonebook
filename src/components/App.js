@@ -26,12 +26,6 @@ function App() {
 
   const firstRender = useRef(true);
 
-  // useEffect(() => {
-  //   const contactsLocal = localStorage.getItem('contacts');
-  //   const parsedContacts = JSON.parse(contactsLocal);
-  //   if (parsedContacts) setContacts(parsedContacts);
-  // }, []);
-
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
