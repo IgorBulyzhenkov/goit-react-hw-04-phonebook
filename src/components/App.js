@@ -6,22 +6,31 @@ import FilterContacts from './FilterContacts/FilterContacts';
 import s from './/App.module.css';
 import { useState, useEffect, useRef } from 'react';
 
-function App() {
-  const [contacts, setContacts] = useState([
+const dataUse = [
     { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
     { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ]);
+  ];
+
+function App() {
+  const [contacts, setContacts] = useState(() => {
+    const contactsLocal = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contactsLocal);
+    if (parsedContacts) {
+      return parsedContacts;
+    }
+    return dataUse;
+  });
   const [filter, setFilter] = useState('');
 
   const firstRender = useRef(true);
 
-  useEffect(() => {
-    const contactsLocal = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contactsLocal);
-    if (parsedContacts) setContacts(parsedContacts);
-  }, []);
+  // useEffect(() => {
+  //   const contactsLocal = localStorage.getItem('contacts');
+  //   const parsedContacts = JSON.parse(contactsLocal);
+  //   if (parsedContacts) setContacts(parsedContacts);
+  // }, []);
 
   useEffect(() => {
     if (firstRender.current) {
